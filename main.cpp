@@ -5,7 +5,7 @@
 #include <iomanip>
 #include <algorithm>
 
-// --- QUANT UTILS & FEATURE ENGINEERING ---
+// feature engineering 
 
 struct MarketData {
     double price;
@@ -14,7 +14,7 @@ struct MarketData {
     double rsi;
 };
 
-// Compute Relative Strength Index (RSI)
+// Compute RSI
 double compute_rsi(const std::vector<double>& prices, int period = 14) {
     if (prices.size() < static_cast<size_t>(period + 1)) return 50.0;
     
@@ -30,7 +30,7 @@ double compute_rsi(const std::vector<double>& prices, int period = 14) {
     return 100.0 - (100.0 / (1.0 + rs));
 }
 
-// Compute Rolling Z-Score (Mean Reversion Metric)
+// Compute Rolling Z-Score 
 double compute_zscore(const std::vector<double>& prices, int window = 20) {
     if (prices.size() < static_cast<size_t>(window)) return 0.0;
     
@@ -47,7 +47,7 @@ double compute_zscore(const std::vector<double>& prices, int window = 20) {
     return (stdev == 0) ? 0.0 : (prices.back() - mean) / stdev;
 }
 
-// --- MACHINE LEARNING: L2-REGULARIZED LOGISTIC REGRESSION ---
+// MACHINE LEARNING: L2-REGULARIZED LOGISTIC REGRESSION
 
 class QuantLogisticRegression {
 private:
@@ -110,10 +110,10 @@ public:
     const std::vector<double>& get_weights() const { return weights; }
 };
 
-// --- BACKTESTING ENGINE ---
+// BACKTESTING
 
 void run_backtest(const std::vector<double>& prices, const std::vector<int>& signals, int offset) {
-    double capital = 100000.0; // $100k starting capital
+    double capital = 100000.0; // $100k starting capital - adjust if you want more/less
     double initial_capital = capital;
     int position = 0; // 1 = Long, -1 = Short, 0 = Cash
     
@@ -158,7 +158,7 @@ void run_backtest(const std::vector<double>& prices, const std::vector<int>& sig
     }
 
     std::cout << "\n=====================================================" << std::endl;
-    std::cout << "                 BACKTEST RESULTS                    " << std::endl;
+    std::cout << "                     RESULTS                    " << std::endl;
     std::cout << "=====================================================" << std::endl;
     std::cout << "Initial Capital  : $" << std::fixed << std::setprecision(2) << initial_capital << std::endl;
     std::cout << "Final Capital    : $" << capital << std::endl;
